@@ -1,0 +1,112 @@
+body {
+    font-family: sans-serif;
+    text-align: center;
+    background: #f8f8f8;
+  }
+  
+  #board {
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+    grid-template-rows: repeat(3, 100px);
+    gap: 5px;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  
+  .cell {
+    background-color: #ddd;
+    border: 2px solid #aaa;
+    position: relative;
+    cursor: pointer;
+  }
+  
+  .piece {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.9;
+  }
+  
+  .small {
+    width: 40px;
+    height: 40px;
+    top: 30px;
+    left: 30px;
+  }
+  
+  .medium {
+    width: 60px;
+    height: 60px;
+    top: 20px;
+    left: 20px;
+  }
+  
+  .large {
+    width: 80px;
+    height: 80px;
+    top: 10px;
+    left: 10px;
+  }
+  
+  .red {
+    background-color: red;
+  }
+  
+  .blue {
+    background-color: blue;
+  }
+  
+  #piece-count {
+    margin: 20px;
+  }
+  
+  #replace-info {
+    margin-top: 10px;
+    font-weight: bold;
+    color: darkred;
+    display: none;
+  }
+  
+  select {
+    padding: 5px;
+    margin-left: 5px;
+  }
+  
+  #reset-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+  }
+  
+  #piece-count-wrapper {
+    margin: 20px;
+  }
+  
+  #piece-counts {
+    margin-top: 10px;
+    line-height: 1.6;
+  }
+  
+  #undo-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+  }
+  
+  #history {
+    margin-top: 20px;
+    max-height: 200px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    padding: 10px;
+  }
+  
+  #history-list {
+    list-style: none;
+    padding-left: 0;
+  }
+  
+  #history-list li {
+    font-size: 14px;
+    margin-bottom: 4px;
+  }
