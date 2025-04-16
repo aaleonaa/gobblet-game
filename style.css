@@ -5,21 +5,22 @@ body {
   }
   
   #board {
-    display: grid;
-    grid-template-columns: repeat(3, 100px);
-    grid-template-rows: repeat(3, 100px);
-    gap: 5px;
-    justify-content: center;
-    margin-top: 20px;
-  }
+  display: grid;
+  grid-template-columns: repeat(3, 100px);
+  grid-template-rows: repeat(3, 100px);
+  gap: 5px;
+  justify-content: center;
+  margin-top: 20px;
+}
   
-  
-  .cell {
-    background-color: #ddd;
-    border: 2px solid #aaa;
-    position: relative;
-    cursor: pointer;
-  }
+.cell {
+  width: 100px;         /* ← 追加 */
+  height: 100px;        /* ← 追加 */
+  background-color: #ddd;
+  border: 2px solid #aaa;
+  position: relative;
+  cursor: pointer;
+}
   
   .piece {
     position: absolute;
@@ -55,11 +56,7 @@ body {
   .blue {
     background-color: blue;
   }
-  
-  #piece-count {
-    margin: 20px;
-  }
-  
+
   #replace-info {
     margin-top: 10px;
     font-weight: bold;
@@ -91,22 +88,4 @@ body {
     margin-top: 20px;
     padding: 10px 20px;
     font-size: 16px;
-  }
-  
-  #history {
-    margin-top: 20px;
-    max-height: 200px;
-    overflow-y: auto;
-    border: 1px solid #ccc;
-    padding: 10px;
-  }
-  
-  #history-list {
-    list-style: none;
-    padding-left: 0;
-  }
-  
-  #history-list li {
-    font-size: 14px;
-    margin-bottom: 4px;
   }

@@ -2,7 +2,6 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>ゴブレットゴブラーズ</title>
   <link rel="stylesheet" href="style.css">
 </head>
@@ -19,9 +18,9 @@
     <option value="medium">中</option>
     <option value="large">大</option>
   </select>
-
-  <div id="board"></div>
   
+  <div id="board"></div>
+
   <div id="piece-count-wrapper">
     <button id="toggle-counts">残り駒を表示/非表示</button>
     <div id="piece-counts" style="display: none;"></div>
@@ -29,12 +28,6 @@
   
   <button id="reset-button">リセット</button>
   <button id="undo-button">一手戻る</button>
-  <button id="toggle-history">履歴を表示</button>
-  <div id="history" style="display: none;">
-    <h3>履歴</h3>
-    <ul id="history-list"></ul>
-  </div>
-
   <script src="script.js"></script>
 </body>
 </html>
