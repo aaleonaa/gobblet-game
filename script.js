@@ -304,8 +304,25 @@ document.addEventListener("DOMContentLoaded", () => {
     pieceCounts.style.display = pieceCounts.style.display === 'none' ? 'block' : 'none';
   });
 
-  resetButton.addEventListener('click', resetGame);
+  resetButton.addEventListener('click', () => {
+    const confirmed = confirm('本当にリセットしますか？');
+    if (confirmed) {
+      resetGame();
+    }
+  });
   undoButton.addEventListener('click', loadHistory);
 
   resetGame();
 });
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('service-worker.js')
+      .then(reg => {
+        console.log('Service Worker registered.', reg);
+      })
+      .catch(err => {
+        console.log('Service Worker registration failed:', err);
+      });
+  });
+}
