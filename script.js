@@ -8,8 +8,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const toggleCountsButton = document.getElementById('toggle-counts');
   const undoButton = document.getElementById('undo-button');
 
-  undoButton.disabled = true; // ★追加：初期は無効化
-
   const historyLogWrapper = document.createElement('div');
   const toggleHistoryButton = document.createElement('button');
   toggleHistoryButton.textContent = '履歴を表示/非表示';
@@ -72,17 +70,9 @@ document.addEventListener("DOMContentLoaded", () => {
     if (moveText) {
       logMove(`ターン ${history.length - 1}: ${moveText}`);
     }
-
-    if (history.length > 2) {
-      undoButton.disabled = false; // ★追加：履歴が2件以上になったら有効化
-    }
   }
 
   function loadHistory() {
-    if (history.length <= 2) {
-      undoButton.disabled = true;  // ★追加：履歴が1件以下ならボタン無効化
-      return;
-    }
 
     history.pop();
 
@@ -118,10 +108,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     currentPlayer = prev.currentPlayer === 1 ? 2 : 1;
     turnText.textContent = `${currentPlayer === 1 ? '赤' : '青'}のターン`;
-
-    if (history.length <= 2) {
-      undoButton.disabled = true; // ★追加：履歴が1件以下になったら無効化
-    }
     
   }
 
@@ -142,7 +128,6 @@ document.addEventListener("DOMContentLoaded", () => {
     updatePieceDisplay();
     history = [];
     saveHistory();
-    undoButton.disabled = true; // ★追加：リセット時も無効化
   }
 
   function updatePieceDisplay() {
@@ -304,13 +289,50 @@ document.addEventListener("DOMContentLoaded", () => {
     pieceCounts.style.display = pieceCounts.style.display === 'none' ? 'block' : 'none';
   });
 
-  resetButton.addEventListener('click', () => {
-    const confirmed = confirm('本当にリセットしますか？');
-    if (confirmed) {
-      resetGame();
-    }
-  });
-  undoButton.addEventListener('click', loadHistory);
+  let resetTapTimeout = null;
+let resetTapCount = 0;
+
+resetButton.addEventListener('click', () => {
+  resetTapCount++;
+  if (resetTapCount === 1) {
+    resetButton.textContent = 'もう一度押すとリセットされます（２秒以内）';
+    resetTapTimeout = setTimeout(() => {
+      resetButton.textContent = 'リセット';
+      resetTapCount = 0;
+    }, 2000);
+  } else if (resetTapCount === 2) {
+    clearTimeout(resetTapTimeout);
+    resetButton.textContent = 'リセット';
+    resetTapCount = 0;
+    resetGame();
+  }
+});
+
+
+undoButton.addEventListener('click', () => {
+  if (history.length <= 2) {
+    // ←ここを <= 2 に変更！
+    board.innerHTML = '';
+    historyLog.innerHTML = '';
+    currentPlayer = 1;
+    mustReplacePiece = null;
+    gameEnded = false;
+    players = {
+      1: { small: 2, medium: 2, large: 2 },
+      2: { small: 2, medium: 2, large: 2 },
+    };
+    turnText.textContent = '赤のターン';
+    replaceInfoText.style.display = 'none';
+    pieceSizeSelect.value = '';
+    createBoard();
+    updatePieceDisplay();
+    history = [];
+    saveHistory();
+  } else {
+    loadHistory();
+  }
+});
+
 
   resetGame();
 });
